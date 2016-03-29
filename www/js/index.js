@@ -51,26 +51,52 @@
 // app.initialize();
 
 var g_map;
-var g_layersList = {osm:['http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png','Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors']};
-var g_defaultLayer;
+var g_mySetting=new UserSetting();
 initialiseMap();
 
 
 function initialiseMap(){
     g_map = new L.map('map');//initialise map variable.
-    if(g_defaultLayer)//checks if the user has a default map layer setup then initialise the map with that layer
-        addLayer(g_defaultLayer)
-    else //otherwise add osm layer
-        addLayer("osm");
+    addLayer();
 }
 
 // create the tile layer with correct attribution
-function addLayer(_layer){
-    var layerUrl = g_layersList[_layer][0];
-    var attrib = g_layersList[_layer][1];
+function addLayer(){
+    var defaultLayer = g_mySetting.getDefaultLayer();
+    var layerUrl = defaultLayer[0];
+    var attrib = defaultLayer[1];
     var mapLayer = new L.TileLayer(layerUrl, {minZoom: 8, maxZoom: 12, attribution: attrib});       
     // start the map in South-East England
     g_map.setView(new L.LatLng(51.3, 0.7),9);
     g_map.addLayer(mapLayer);
 
 }
+
+
+
+//This funciton will determine whether the user is inside one of the defined geo fences or not. 
+function isInGeofence(){
+    var isInside = false;
+
+
+
+    return isInside;
+}
+
+//get current geolocation
+function getMyLocation(){
+    var myLocation = [41.0000,21.0000];
+
+    return myLocation;
+}
+
+
+
+function getAllGeoFences(){
+    var geoFences={};
+    return geoFences;
+}
+
+
+
+

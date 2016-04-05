@@ -50,15 +50,37 @@
 
 // app.initialize();
 
+
+/*
+imporatant settings
+1. browser
+Web Storage     Chrome>4.0     Edge>12.0    IE>8.0     Firefox>3.5     Safari>4.0     Opera>11.5
+*/
+
 var g_map;
 var g_mySetting=new UserSetting();
 initialiseMap();
 initialiseUser();
 
+
+var g_firstTime = true;
+
+
+
+//TODO: add this somewhere and decide what to do if storage is not suppoted. 
+function checRequirements(){
+    //check browser support
+    if(typeof(Storage) !== "undefined") {
+    // Code for localStorage/sessionStorage.
+    } else {
+    // Sorry! No Web Storage support..
+    }
+}
+
+
 function initialiseMap(){
     g_map = new L.map('map');//initialise map variable.
     addLayer();
-    makeSampleGeoFences();
 }
 
 // create the tile layer with correct attribution
@@ -85,18 +107,18 @@ function getAllGeoFences(){
 }
 
 function makeSampleGeoFences(){
+    var loc = g_mySetting.getUserLoc();
+    var colors = ["aqua", "black", "blue", "fuchsia", "gray", "green","lime", "maroon", "navy", "olive", "orange", "purple", "red", "silver", "teal", "white"];
+    for(var i =0; i<8;i++){
 
-    var pulsingIcon = L.icon.pulse({iconSize:[20,20],color:'red'});
-    var marker = L.marker([55.945925800000005, -3.2005949],{icon: pulsingIcon}).addTo(g_map);
+    var newloc = [g_mySetting.getUserLoc()[0]+Math.random()/100,g_mySetting.getUserLoc()[1]+Math.random()/100];
+    var pulsingIcon = L.icon.pulse({iconSize:[20,20],color:colors[Math.floor(Math.random()*15)]});
+var marker = L.marker(newloc,{icon: pulsingIcon}).addTo(g_map);
+    var newloc = [g_mySetting.getUserLoc()[0]-Math.random()/100,g_mySetting.getUserLoc()[1]-Math.random()/100];
+    var pulsingIcon = L.icon.pulse({iconSize:[20,20],color:colors[Math.floor(Math.random()*15)]});
 
-    var pulsingIcon2 = L.icon.pulse({iconSize:[20,20],color:'blue'});
-    var marker2 = L.marker([55.94, -3.2005949],{icon: pulsingIcon2}).addTo(g_map);
-
-    var pulsingIcon3 = L.icon.pulse({iconSize:[20,20],color:'green'});
-    var marker3 = L.marker([55.9450, -3.200],{icon: pulsingIcon3}).addTo(g_map);
-
-    var pulsingIcon4 = L.icon.pulse({iconSize:[20,20],color:'purple'});
-    var marker4 = L.marker([55.9450, -3.230],{icon: pulsingIcon4}).addTo(g_map);
+    var marker = L.marker(newloc,{icon: pulsingIcon}).addTo(g_map);
+}
 }
 
 //look at user setting and do things like show the user location if it is in the setting and so on....
@@ -111,7 +133,15 @@ function initialiseUser(){
 function updateUserLcation(_location){
    g_mySetting.setUserLoc(_location);
    g_map.setView(g_mySetting.getUserLoc(),15);
-   console.log(g_mySetting.getUserLoc());
+   if (g_firstTime){
+       makeSampleGeoFences();
+       g_firstTime=false;
+   }
+
+
+// read_user_basic
+// send_my_tips_on_channel
+// read_my_tips_on_channel
 
 
 }
@@ -127,3 +157,4 @@ function getLocation() {
 function addUserLocation(){
     g_mySetting.getMarker().addTo(g_map);
 }
+

@@ -11,8 +11,9 @@ function UserSetting () {
 		locAccuracy:0,
 		locTimestamp:0
 	};
-	this.locIcon = new LeafIcon({iconUrl: 'img/icons/locIcon.png'});
+	this.locIcon = new LeafIcon({iconUrl: 'img/icons/userIcon.png'});
 	this.marker = L.marker([51.3, 0.7], {icon: this.locIcon});
+    this.initialiseUser();
 		}
 UserSetting.prototype.getDefaultLayer = function() {
     return this.defaultLayer;
@@ -58,14 +59,47 @@ UserSetting.prototype.addUserMarker = function(_map) {
 };
 
 
+// https://geocoin.eca.ed.ac.uk/registerUser.php
+
+UserSetting.prototype.initialiseUser = function(){
+    //check if the user has already been registered, this will be in the local storage. 
+    this.checkRegistration();
+
+}
+
+UserSetting.prototype.checkRegistration = function(){
+    //check if the user has already been registered, this will be in the local storage. 
+    if(!localStorage.getItem("uniqueId")) {
+        console.log("user is not registered.");
+        $.post( "https://geocoin.eca.ed.ac.uk/registerUser.php", function( data ) {
+            if(data.status=="sucess")
+                localStorage.setItem("uniqueId",data.uniqueId);
+            else
+                console.log(data.status);
+        });
+        //make a call to the php page and set the uniqueId in the localstorage. 
+    }
+    else{
+        console.log("user id is: " +  localStorage.getItem("uniqueId"));
+    }
+
+}
+
+
+
+
+
+
 
 var LeafIcon = L.Icon.extend({
 	options: {
-        // shadowUrl: 'leaf-shadow.png',
-        iconSize:     new L.Point(50, 50),
+        shadowUrl: 'img/icons/userIconShadow.png',
+        // iconSize:     new L.Point(50, 50),
         // shadowSize:   [50, 64],
-        iconAnchor:   new L.Point(16, 16),
+        // iconAnchor:   new L.Point(16, 16),
         // shadowAnchor: [4, 62],
         popupAnchor:  new L.Point(16, 16)
     }
 });
+
+

@@ -1,8 +1,10 @@
+/*
 
+*/
 
 function UserSetting () {
 	this.layersList = {osm:['http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png','Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors']};
-	this.defaultLayer = this.layersList["osm"]; 
+	this.defaultLayer = this.layersList["osm"];
 	this.locationSetting = {
 		showLocation:true,
 		locationRefreshInterval:10000,
@@ -32,6 +34,7 @@ UserSetting.prototype.getIcon = function() {
 
 UserSetting.prototype.setUserLoc = function(_loc) {
     this.locationSetting.location=[_loc.coords.latitude,_loc.coords.longitude];
+		console.log(this.locationSetting.location);
     this.locationSetting.locAccuracy=_loc.coords.accuracy;
     this.locationSetting.locTimestamp=_loc.timestamp;
     this.updateMarkerLoc();
@@ -55,20 +58,20 @@ UserSetting.prototype.getUserLoc = function() {
 };
 
 UserSetting.prototype.addUserMarker = function(_map) {
-    
+
 };
 
 
 // https://geocoin.eca.ed.ac.uk/registerUser.php
 
 UserSetting.prototype.initialiseUser = function(){
-    //check if the user has already been registered, this will be in the local storage. 
+    //check if the user has already been registered, this will be in the local storage.
     this.checkRegistration();
 
 }
 
 UserSetting.prototype.checkRegistration = function(){
-    //check if the user has already been registered, this will be in the local storage. 
+    //check if the user has already been registered, this will be in the local storage.
     if(!localStorage.getItem("uniqueId")) {
         console.log("user is not registered.");
         $.post( "https://geocoin.eca.ed.ac.uk/registerUser.php", function( data ) {
@@ -77,7 +80,7 @@ UserSetting.prototype.checkRegistration = function(){
             else
                 console.log(data.status);
         });
-        //make a call to the php page and set the uniqueId in the localstorage. 
+        //make a call to the php page and set the uniqueId in the localstorage.
     }
     else{
         console.log("user id is: " +  localStorage.getItem("uniqueId"));
@@ -103,3 +106,25 @@ var LeafIcon = L.Icon.extend({
 });
 
 
+
+/*
+
+begin
+
+INSERT INTO locations_archive (`userId`, `longitude`, `latitude`, `accuracy`, `timeReceived`)
+SELECT `userId`, `longitude`, `latitude`, `accuracy`, `timeReceived`
+FROM   locations
+WHERE  `userId` = uId;
+
+DELETE from locations
+WHERE  `userId` = uId;
+
+insert into locations (`userId`,
+                       `longitude`,
+                       `latitude`,
+                       `accuracy`,
+                       `timeReceived`)
+Values(uId,latitude,longitude,accuracy,timest);
+
+end
+*/

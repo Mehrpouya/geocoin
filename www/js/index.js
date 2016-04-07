@@ -67,18 +67,17 @@ var g_firstTime = true;
 
 
 
-//TODO: add this somewhere and decide what to do if storage is not suppoted. 
+//TODO: add this somewhere and decide what to do if storage is not suppoted.
 function checRequirements(){
     //check browser support
-    if(typeof(Storage) !== "undefined") {
-    // Code for localStorage/sessionStorage.
-    } else {
-    // Sorry! No Web Storage support..
+    if(typeof(Storage) == "undefined") {
+      alert("this browser is not supported. Do you have Chrome or Firefox?");
     }
 }
 
 
 function initialiseMap(){
+  checRequirements();
     g_map = new L.map('map');//initialise map variable.
     addLayer();
 }
@@ -88,14 +87,14 @@ function addLayer(){
     var defaultLayer = g_mySetting.getDefaultLayer();
     var layerUrl = defaultLayer[0];
     var attrib = defaultLayer[1];
-    var mapLayer = new L.TileLayer(layerUrl, {minZoom: 8, maxZoom: 16, attribution: attrib});       
+    var mapLayer = new L.TileLayer(layerUrl, {minZoom: 8, maxZoom: 16, attribution: attrib});
     // start the map in South-East England
     g_map.setView(new L.LatLng(55.945925800000005, -3.2005949),15);
     g_map.addLayer(mapLayer);
 }
 
 
-//This funciton will determine whether the user is inside one of the defined geo fences or not. 
+//This funciton will determine whether the user is inside one of the defined geo fences or not.
 function isInGeofence(){
     var isInside = false;
     return isInside;
@@ -157,4 +156,3 @@ function getLocation() {
 function addUserLocation(){
     g_mySetting.getMarker().addTo(g_map);
 }
-

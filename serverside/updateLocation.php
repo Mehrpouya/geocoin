@@ -20,21 +20,23 @@ add it to the users database
 return the value to the user as php response
 the user then will save this in localstorage and uset it.
 */
-if(isset($_GET['uniqueId'],$_GET['longitude'],$_GET['latitude'],
-         $_GET['accuracy'],$_GET['timeReceived'])){
+if(isset($_POST['uniqueId'],$_POST['longitude'],$_POST['latitude'],
+         $_POST['accuracy'],$_POST['timeReceived'])){
   if ($db->connect_errno > 0) {
     die('Unable to connect to database [' . $db->connect_error . ']');
   } else {
     if (!($stmt = $db->prepare("call updateLocation (?,?,?,?,?)"))) {
       echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
     }
-    $uniqueId = ($_GET['uniqueId']);
-    $longitude = ($_GET['longitude']);
-    $latitude = ($_GET['latitude']);
-    $accuracy = ($_GET['accuracy']);
-    $timeReceived = ($_GET['timeReceived']);
+    $uniqueId = ($_POST['uniqueId']);
+    $longitude = ($_POST['longitude']);
+    $latitude = ($_POST['latitude']);
+    $accuracy = ($_POST['accuracy']);
+    $timeReceived = ($_POST['timeReceived']);
+
     $stmt->bind_param('sddii', $uniqueId, $latitude, $longitude , $accuracy,$timeReceived);
 
+    echo $stmt->fullQuery;
 
 
     if (!$stmt->execute()) {

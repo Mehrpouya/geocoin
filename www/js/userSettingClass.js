@@ -37,9 +37,31 @@ UserSetting.prototype.setUserLoc = function(_loc) {
 		console.log(this.locationSetting.location);
     this.locationSetting.locAccuracy=_loc.coords.accuracy;
     this.locationSetting.locTimestamp=_loc.timestamp;
+		this.dbUpdateLocation();//updates the current locaiton on server
     this.updateMarkerLoc();
 
 };
+
+//updating users locaiton in the database. the stored procedure will first archive previous position in locations_archive and then adds the new location.
+UserSetting.prototype.dbUpdateLocation=function(){
+	var postUrl = "http://geocoin.eca.ed.ac.uk/updateLocation.php";
+	var inputs =  { uniqueId:this.getUserId(),
+									longitude:this.locationSetting.location[1],
+									latitude:this.locationSetting.location[0],
+									accuracy:Math.floor(this.locationSetting.locAccuracy),
+									timeReceived:this.locationSetting.locTimestamp
+								};
+	console.log(inputs);
+
+	$.post( postUrl,inputs, function( data ) {
+			if(data.status=="sucess")
+					console.log("date is " + data);
+			else
+					console.log(data.status);
+	}).fail(function(data){
+		console.log(data);
+	});
+}
 
 UserSetting.prototype.setMarker = function(_marker) {
     this.marker = _marker;
@@ -74,21 +96,23 @@ UserSetting.prototype.checkRegistration = function(){
     //check if the user has already been registered, this will be in the local storage.
     if(!localStorage.getItem("uniqueId")) {
         console.log("user is not registered.");
-        $.post( "https://geocoin.eca.ed.ac.uk/registerUser.php", function( data ) {
-            if(data.status=="sucess")
+        $.post( "http://geocoin.eca.ed.ac.uk/registerUser.php", function( data ) {
+            if(data.status=="sucess"){
                 localStorage.setItem("uniqueId",data.uniqueId);
+								console.log(data.uniqueId);}
             else
                 console.log(data.status);
         });
         //make a call to the php page and set the uniqueId in the localstorage.
     }
-    else{
-        console.log("user id is: " +  localStorage.getItem("uniqueId"));
-    }
-
+		else{
+			console.log("user is: " + this.getUserId() );
+		}
 }
 
-
+UserSetting.prototype.getUserId = function(){
+	return localStorage.getItem("uniqueId");
+}
 
 
 

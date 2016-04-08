@@ -33,6 +33,7 @@ UserSettingClass.prototype.getIcon = function() {
 
 
 UserSettingClass.prototype.setUserLoc = function(_loc) {
+
     this.locationSetting.location=[_loc.coords.latitude,_loc.coords.longitude];
 		console.log(this.locationSetting.location);
     this.locationSetting.locAccuracy=_loc.coords.accuracy;
@@ -78,6 +79,14 @@ UserSettingClass.prototype.updateMarkerLoc = function() {
 UserSettingClass.prototype.getUserLoc = function() {
     return this.locationSetting.location;
 };
+
+UserSettingClass.prototype.getUserLat = function() {
+    return this.locationSetting.location[0];
+};
+UserSettingClass.prototype.getUserLon = function() {
+    return this.locationSetting.location[1];
+};
+
 
 UserSettingClass.prototype.addUserMarker = function(_map) {
 

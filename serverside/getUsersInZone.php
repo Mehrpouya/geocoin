@@ -44,7 +44,10 @@ if(isset($_POST['uniqueId'],$_POST['longitude'],$_POST['latitude'],
   if ($db->connect_errno > 0) {
     die('Unable to connect to database [' . $db->connect_error . ']');
   } else {
-    if (!($stmt = $db->prepare("call updateLocation (?,?,?,?,?)"))) {
+    if (!($stmt = $db->prepare(
+                        "SELECT * , isInZone(
+                          '55.22000000', '-3.20051680', latitude, longitude) AS dist
+                           FROM `locations` HAVING dist <?"))) {
       echo "Prepare failed: (" . $db->errno . ") " . $db->error;
     }
     $uniqueId = ($_POST['uniqueId']);

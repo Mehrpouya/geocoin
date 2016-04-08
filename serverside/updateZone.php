@@ -33,10 +33,9 @@ updating point_zones. This php file, will update zones as enabling and disabling
 if ($db->connect_errno > 0) {
   die('Unable to connect to database [' . $db->connect_error . ']');
 } else {
-  if(isset($_GET['action'])){
-    if($_GET['action']=="update"){
-      if(isset($_GET['longitude'],$_GET['latitude'],
-      $_GET['radius'],$_GET['zoneType'])){
+  if(isset($_GET['type'])){
+    if($_GET['type']=="money"){
+      if(isset($_GET['zoneId'],$_GET['userId']){
         if ($db->connect_errno > 0) {
           die('Unable to connect to database [' . $db->connect_error . ']');
         } else {

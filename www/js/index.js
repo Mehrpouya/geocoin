@@ -65,7 +65,7 @@ initialiseUser();
 initialiseZones();
 
 
-var g_firstTime = true;
+var g_addSampleZones = false;
 
 //look at user setting and do things like show the user location if it is in the setting and so on....
 function initialiseUser(){
@@ -111,12 +111,8 @@ function addLayer(){
 //This funciton will determine whether the user is inside one of the defined geo fences or not.
 function isInGeofence(){
     var isInside = false;
+    g_zones.isInMoneyZone();
     return isInside;
-}
-
-function getAllGeoFences(){
-    var geoFences={};
-    return geoFences;
 }
 
 function makeSampleGeoFences(){
@@ -137,20 +133,15 @@ var marker = L.marker(newloc,{icon: pulsingIcon}).addTo(g_map);
 
 
 //This will use the geo locaiton and update the user setting variable
+//it will also calles is in geofence.
 function updateUserLcation(_location){
    g_user.setUserLoc(_location);
    g_map.setView(g_user.getUserLoc(),15);
-  //  if (g_firstTime){
-  //      makeSampleGeoFences();
-  //      g_firstTime=false;
-  //  }
-
-
-// read_user_basic
-// send_my_tips_on_channel
-// read_my_tips_on_channel
-
-
+   if (g_addSampleZones){
+       makeSampleGeoFences();
+       g_addSampleZones=false;
+   }
+   isInGeofence();
 }
 
 

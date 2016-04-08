@@ -33,10 +33,8 @@ PointZoneClass.prototype.getZonesList=function(){
 	var self=this;
 	$.post(postUrl,inputs, function( data ) {
 					self.zonesList = data;
-					console.log(self.zonesList);
 					self.loadZoneLists(data);
 					self.updateZonesMarkers();
-
 	});
 
 };
@@ -46,7 +44,7 @@ PointZoneClass.prototype.loadZoneLists=function(_data){
 	var zoneType = "";
 	var zone;
 	for(var i = 0 ; i<_data.length;i++){
-		zone = _data[0];
+		zone = _data[i];
 		switch (zone.zoneType) {
 			case "money":
 				this.moneyZones[moneyIndex]	= zone;
@@ -58,8 +56,6 @@ PointZoneClass.prototype.loadZoneLists=function(_data){
 				break;
 		}
 	}
-
-
 };
 var g_moneyMarker=[];
 PointZoneClass.prototype.updateZonesMarkers=function(){
@@ -67,7 +63,18 @@ PointZoneClass.prototype.updateZonesMarkers=function(){
 	var zone;
 	for(var i = 0 ; i<this.moneyZones.length ; i++){
 		zone = this.moneyZones[i];
-
+		console.log(zone);
 		g_moneyMarker[g_moneyMarker.length] = L.marker([zone.latitude,zone.longitude], {icon: this.moneyIcon}).addTo(g_map);
 	}
 };
+PointZoneClass.prototype.isInMoneyZone=function(){
+	var distanceToZone;
+	for(var i = 0 ; i<this.moneyZones.length ; i++){
+		zone = this.moneyZones[i];
+		distanceToZone=getDistance( zone.latitude,zone.longitude, g_user.getUserLat(),g_user.getUserLon());
+
+		if(distanceToZone<zone.radius){
+
+		}
+	}
+}

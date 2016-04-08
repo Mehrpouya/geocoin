@@ -36,3 +36,16 @@ var LeafIcon = L.Icon.extend({
         popupAnchor:  new L.Point(16, 16)
     }
 });
+Math.radians = function(degrees) {
+  return degrees * Math.PI / 180;
+};
+
+function getDistance(_lat1,_lon1,_lat2,_lon2){
+	var dist;
+  var rlat1 = Math.radians( _lat1 ),
+	rlat2 = Math.radians( _lat2 ),
+  rlon1 = Math.radians( _lon1 ),
+	rlon2 = Math.radians( _lon2 );
+  dist  = Math.acos( Math.cos( rlat1 ) * Math.cos( rlon1 ) * Math.cos( rlat2 ) * Math.cos( rlon2 ) + Math.cos( rlat1 ) * Math.sin( rlon1 ) * Math.cos( rlat2 ) * Math.sin( rlon2 ) + Math.sin( rlat1 ) * Math.sin( rlat2 ) ) * 6372.8;
+  return dist;
+}

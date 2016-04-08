@@ -58,14 +58,28 @@ Web Storage     Chrome>4.0     Edge>12.0    IE>8.0     Firefox>3.5     Safari>4.
 */
 
 var g_map;
-var g_mySetting=new UserSetting();
+var g_user=new UserSettingClass();
+var g_zones=new PointZoneClass();
 initialiseMap();
 initialiseUser();
+initialiseZones();
 
 
 var g_firstTime = true;
 
+//look at user setting and do things like show the user location if it is in the setting and so on....
+function initialiseUser(){
+    getLocation();
+    if(g_user.getShowLocation){
+        addUserLocation();
+    }
+    setInterval(getLocation, g_user.locationSetting.locationRefreshInterval);
 
+}
+
+function initialiseZones(){
+
+}
 
 //TODO: add this somewhere and decide what to do if storage is not suppoted.
 function checRequirements(){
@@ -84,7 +98,7 @@ function initialiseMap(){
 
 // create the tile layer with correct attribution
 function addLayer(){
-    var defaultLayer = g_mySetting.getDefaultLayer();
+    var defaultLayer = g_user.getDefaultLayer();
     var layerUrl = defaultLayer[0];
     var attrib = defaultLayer[1];
     var mapLayer = new L.TileLayer(layerUrl, {minZoom: 8, maxZoom: 16, attribution: attrib});
@@ -106,36 +120,30 @@ function getAllGeoFences(){
 }
 
 function makeSampleGeoFences(){
-    var loc = g_mySetting.getUserLoc();
+    var loc = g_user.getUserLoc();
     var colors = ["aqua", "black", "blue", "fuchsia", "gray", "green","lime", "maroon", "navy", "olive", "orange", "purple", "red", "silver", "teal", "white"];
     for(var i =0; i<8;i++){
 
-    var newloc = [g_mySetting.getUserLoc()[0]+Math.random()/100,g_mySetting.getUserLoc()[1]+Math.random()/100];
+    var newloc = [g_user.getUserLoc()[0]+Math.random()/100,g_user.getUserLoc()[1]+Math.random()/100];
     var pulsingIcon = L.icon.pulse({iconSize:[20,20],color:colors[Math.floor(Math.random()*15)]});
 var marker = L.marker(newloc,{icon: pulsingIcon}).addTo(g_map);
-    var newloc = [g_mySetting.getUserLoc()[0]-Math.random()/100,g_mySetting.getUserLoc()[1]-Math.random()/100];
+    var newloc = [g_user.getUserLoc()[0]-Math.random()/100,g_user.getUserLoc()[1]-Math.random()/100];
     var pulsingIcon = L.icon.pulse({iconSize:[20,20],color:colors[Math.floor(Math.random()*15)]});
 
     var marker = L.marker(newloc,{icon: pulsingIcon}).addTo(g_map);
 }
 }
 
-//look at user setting and do things like show the user location if it is in the setting and so on....
-function initialiseUser(){
-    getLocation();
-    if(g_mySetting.getShowLocation){
-        addUserLocation();
-    }
-    setInterval(getLocation, g_mySetting.locationSetting.locationRefreshInterval);
-}
+
+
 //This will use the geo locaiton and update the user setting variable
 function updateUserLcation(_location){
-   g_mySetting.setUserLoc(_location);
-   g_map.setView(g_mySetting.getUserLoc(),15);
-   if (g_firstTime){
-       makeSampleGeoFences();
-       g_firstTime=false;
-   }
+   g_user.setUserLoc(_location);
+   g_map.setView(g_user.getUserLoc(),15);
+  //  if (g_firstTime){
+  //      makeSampleGeoFences();
+  //      g_firstTime=false;
+  //  }
 
 
 // read_user_basic
@@ -145,14 +153,7 @@ function updateUserLcation(_location){
 
 }
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(updateUserLcation);
-    } else {
-        console.log("Geolocation is not supported by this browser.");
-    }
-}
 
 function addUserLocation(){
-    g_mySetting.getMarker().addTo(g_map);
+    g_user.getMarker().addTo(g_map);
 }

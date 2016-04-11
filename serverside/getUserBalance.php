@@ -31,12 +31,13 @@ $db = new mysqli($host, $username, $password, $database);
 updating point_zones. This php file, will update zones as enabling and disabling them, also deleting them.
 */
 //if user passes long and lat and radius then we will return zones in this proximity otherwise return all zones.
-if(isset($_GET['userId'])){
+if(isset($_POST['userId'])){
   if ($db->connect_errno > 0) {
     die('Unable to connect to database [' . $db->connect_error . ']');
   } else {
     $returned_array = array();
-    $sql = "select from point_zones";
+    $userId= $db->real_escape_string($_POST['userId']);
+    $sql = "SELECT `getUserBalance` ('" . $userId . "') as balance";
     if (!$result = $db->query($sql)) {
       die('There was an error running the query [' . $db->error . ']');
     }
@@ -44,6 +45,7 @@ if(isset($_GET['userId'])){
       $returned_array[] = $row;
     }
     echo json_encode($returned_array);
+    $db->close();
   }
 }
 ?>

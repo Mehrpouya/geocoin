@@ -42,7 +42,7 @@ else{
     die('Unable to connect to database [' . $db->connect_error . ']');
   } else {
     $returned_array = array();
-    $sql = "select * from point_zones";
+    $sql = "select * from point_zones where status='on'";
     if (!$result = $db->query($sql)) {
       die('There was an error running the query [' . $db->error . ']');
     }

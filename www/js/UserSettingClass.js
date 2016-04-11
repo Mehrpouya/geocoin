@@ -33,14 +33,22 @@ UserSettingClass.prototype.getIcon = function() {
 
 
 UserSettingClass.prototype.setUserLoc = function(_loc) {
-
+	if(!g_debugMode){
     this.locationSetting.location=[_loc.coords.latitude,_loc.coords.longitude];
-		console.log(this.locationSetting.location);
     this.locationSetting.locAccuracy=_loc.coords.accuracy;
     this.locationSetting.locTimestamp=_loc.timestamp;
 		this.dbUpdateLocation();//updates the current locaiton on server
     this.updateMarkerLoc();
-
+		this.updateBalabce();
+}
+else{
+	this.locationSetting.location=[_loc.lat,_loc.lng];
+	this.locationSetting.locAccuracy=15;
+	this.locationSetting.locTimestamp=Date.now();
+	this.dbUpdateLocation();//updates the current locaiton on server
+	this.updateMarkerLoc();
+	this.updateBalabce();
+}
 };
 
 //updating users locaiton in the database. the stored procedure will first archive previous position in locations_archive and then adds the new location.
@@ -52,17 +60,18 @@ UserSettingClass.prototype.dbUpdateLocation=function(){
 									accuracy:Math.floor(this.locationSetting.locAccuracy),
 									timeReceived:this.locationSetting.locTimestamp
 								};
-	console.log(inputs);
-
 	$.post( postUrl,inputs, function( data ) {
-			if(data.status=="sucess")
-					console.log("date is " + data);
-			else
-					console.log(data.status);
-	}).fail(function(data){
-		console.log(data);
 	});
 }
+
+UserSettingClass.prototype.updateBalabce = function(_marker) {
+	console.log("in There!!");
+	var postUrl = "http://geocoin.eca.ed.ac.uk/getUserBalance.php";
+	var inputs =  { userId:this.getUserId()};
+	$.post( postUrl,inputs).always(function(data) {
+		$("#userBalance").text("Balance "+data[0].balance);
+	});
+};
 
 UserSettingClass.prototype.setMarker = function(_marker) {
     this.marker = _marker;

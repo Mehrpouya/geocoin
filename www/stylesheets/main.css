@@ -1,0 +1,25 @@
+/* line 1, ../sass/main.scss */
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/* line 5, ../sass/main.scss */
+html, body, #map {
+  height: 100%;
+}
+
+/* line 10, ../sass/main.scss */
+#userBalance {
+  display: block;
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  z-index: 999;
+  background-color: rgba(200, 200, 200, 0.8);
+  padding: 5px;
+  margin: 5px;
+  font-size: 24px;
+  border-radius: 5px;
+  color: teal;
+}

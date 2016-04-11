@@ -33,35 +33,26 @@ updating point_zones. This php file, will update zones as enabling and disabling
 if ($db->connect_errno > 0) {
   die('Unable to connect to database [' . $db->connect_error . ']');
 } else {
-  if(isset($_GET['type'])){
-    if($_GET['type']=="money"){
-      if(isset($_GET['zoneId'],$_GET['userId']){
+  if(isset($_POST['type'])){
+    if($_POST['type']=="money"){
+      if(isset($_POST['zoneId'],$_POST['userId'])){
         if ($db->connect_errno > 0) {
           die('Unable to connect to database [' . $db->connect_error . ']');
         } else {
-          if (!($stmt = $db->prepare("INSERT INTO `point_zones`(`latitude`, `longitude`, `radius`, `zoneType`) values (?,?,?,?)"))) {
+          if (!($stmt = $db->prepare("call userInMoneyZone (?,?)"))) {
             echo "Prepare failed: (" . $db->errno . ") " . $db->error;
           }
-          $longitude = ($_GET['longitude']);
-          $latitude = ($_GET['latitude']);
-          $radius = ($_GET['radius']);
-          $zoneType = ($_GET['zoneType']);
-          $stmt->bind_param('ddii', $latitude, $longitude , $radius,$zoneType);
+          $zoneId = $_POST['zoneId'];
+          $userId = $_POST['userId'];
+          $stmt->bind_param('si', $userId, $zoneId);
           if (!$stmt->execute()) {
-            $response = array(
-              "status"=>"failed",
-              "errno"=>$stmt->errno,
-              "error"=> $stmt->error);
-            }
-            else{
-              $response = array(
-                "status"=>"sucess");
-              }
-              $stmt->close();
-            }
-            echo json_encode($response);
+            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
           }
+          $stmt->close();
+
         }
       }
     }
-    ?>
+  }
+}
+?>

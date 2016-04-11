@@ -60,6 +60,7 @@ Web Storage     Chrome>4.0     Edge>12.0    IE>8.0     Firefox>3.5     Safari>4.
 var g_map;
 var g_user=new UserSettingClass();
 var g_zones=new PointZoneClass();
+var g_debugMode= true;
 initialiseMap();
 initialiseUser();
 initialiseZones();
@@ -73,7 +74,8 @@ function initialiseUser(){
     if(g_user.getShowLocation){
         addUserLocation();
     }
-    setInterval(getLocation, g_user.locationSetting.locationRefreshInterval);
+    if(!g_debugMode)
+      setInterval(getLocation, g_user.locationSetting.locationRefreshInterval);
 
 }
 
@@ -101,10 +103,12 @@ function addLayer(){
     var defaultLayer = g_user.getDefaultLayer();
     var layerUrl = defaultLayer[0];
     var attrib = defaultLayer[1];
-    var mapLayer = new L.TileLayer(layerUrl, {minZoom: 8, maxZoom: 16, attribution: attrib});
+    var mapLayer = new L.TileLayer(layerUrl, {minZoom: 17, maxZoom: 19, attribution: attrib});
     // start the map in South-East England
-    g_map.setView(new L.LatLng(55.945925800000005, -3.2005949),15);
+    g_map.setView(new L.LatLng(55.945925800000005, -3.2005949),17);
     g_map.addLayer(mapLayer);
+    if(g_debugMode)
+      g_map.on("click", _update, this);
 }
 
 

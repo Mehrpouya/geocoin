@@ -49,3 +49,26 @@ function getDistance(_lat1,_lon1,_lat2,_lon2){
   dist  = Math.acos( Math.cos( rlat1 ) * Math.cos( rlon1 ) * Math.cos( rlat2 ) * Math.cos( rlon2 ) + Math.cos( rlat1 ) * Math.sin( rlon1 ) * Math.cos( rlat2 ) * Math.sin( rlon2 ) + Math.sin( rlat1 ) * Math.sin( rlat2 ) ) * 6372.8;
   return dist;
 }
+
+
+ function _update(evt) {
+		var pos = evt.latlng,
+    pos = pos.wrap();
+		if (pos) {
+      g_user.setUserLoc(pos);
+      g_map.setView(g_user.getUserLoc());
+      isInGeofence();
+		}
+	};
+
+
+  function removeAllMarkers(_markersArray){
+    var marker;
+    for(var i=0;i<_markersArray.length;i++){
+      marker=_markersArray[i];
+      g_map.removeLayer(marker);
+    }
+    _markersArray=[];
+
+
+  }

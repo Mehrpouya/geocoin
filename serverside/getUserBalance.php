@@ -36,7 +36,7 @@ if(isset($_POST['userId'])){
     die('Unable to connect to database [' . $db->connect_error . ']');
   } else {
     $returned_array = array();
-    $userId= $db->real_escape_string($_POST['userId']);
+    $userId= $_POST['userId'];
     $sql = "SELECT `getUserBalance` ('" . $userId . "') as balance";
     if (!$result = $db->query($sql)) {
       die('There was an error running the query [' . $db->error . ']');

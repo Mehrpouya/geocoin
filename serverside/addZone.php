@@ -48,7 +48,7 @@ if ($db->connect_errno > 0) {
       $radius = ($_GET['radius']);
       $zoneType = ($_GET['zoneType']);
       $status = ($_GET['status']);
-      $stmt->bind_param('ddiis', $latitude, $longitude , $radius,$zoneType,$status);
+      $stmt->bind_param('ddiss', $latitude, $longitude , $radius,$zoneType,$status);
       if (!$stmt->execute()) {
         $response = array(
           "status"=>"failed",

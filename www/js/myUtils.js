@@ -20,7 +20,7 @@ Research Project title: After Money, University of Edinburgh in collaboration wi
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(updateUserLcation);
+        navigator.geolocation.getCurrentPosition(updateUserLocation);
     } else {
         console.log("Geolocation is not supported by this browser.");
     }
@@ -54,6 +54,7 @@ function getDistance(_lat1,_lon1,_lat2,_lon2){
  function _update(evt) {
 		var pos = evt.latlng,
     pos = pos.wrap();
+    console.log(pos);
 		if (pos) {
       g_user.setUserLoc(pos);
       g_map.setView(g_user.getUserLoc());

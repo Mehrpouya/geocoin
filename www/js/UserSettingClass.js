@@ -7,7 +7,7 @@ function UserSettingClass () {
 	this.defaultLayer = this.layersList["osm"];
 	this.locationSetting = {
 		showLocation:true,
-		locationRefreshInterval:10000,
+		locationRefreshInterval:2000,
 		followUser:true,//this means when the user locaiton moves, always keep the user in the centre of the map.
 		location:[55.945925800000005, -3.2005949],
 		locAccuracy:0,
@@ -37,9 +37,9 @@ UserSettingClass.prototype.setUserLoc = function(_loc) {
     this.locationSetting.location=[_loc.coords.latitude,_loc.coords.longitude];
     this.locationSetting.locAccuracy=_loc.coords.accuracy;
     this.locationSetting.locTimestamp=_loc.timestamp;
-		this.dbUpdateLocation();//updates the current locaiton on server
+	this.dbUpdateLocation();//updates the current locaiton on server
     this.updateMarkerLoc();
-		this.updateBalabce();
+	this.getNewBalabce();
 }
 else{
 	this.locationSetting.location=[_loc.lat,_loc.lng];
@@ -47,7 +47,7 @@ else{
 	this.locationSetting.locTimestamp=Date.now();
 	this.dbUpdateLocation();//updates the current locaiton on server
 	this.updateMarkerLoc();
-	this.updateBalabce();
+	this.getNewBalabce();
 }
 };
 
@@ -64,12 +64,14 @@ UserSettingClass.prototype.dbUpdateLocation=function(){
 	});
 }
 
-UserSettingClass.prototype.updateBalabce = function(_marker) {
-	console.log("in There!!");
+UserSettingClass.prototype.getNewBalabce = function(_marker) {
+	// console.log("in There!!");
 	var postUrl = "http://geocoin.eca.ed.ac.uk/getUserBalance.php";
 	var inputs =  { userId:this.getUserId()};
+    // console.log(inputs);
 	$.post( postUrl,inputs).always(function(data) {
-		$("#userBalance").text("Balance "+data[0].balance);
+        // console.log(data);
+		$("#userBalance").text("Balance"+ " " + data[0].balance);
 	});
 };
 
@@ -107,6 +109,7 @@ UserSettingClass.prototype.addUserMarker = function(_map) {
 UserSettingClass.prototype.initialiseUser = function(){
     //check if the user has already been registered, this will be in the local storage.
     this.checkRegistration();
+    this.getNewBalabce();
 
 }
 
@@ -114,11 +117,10 @@ UserSettingClass.prototype.initialiseUser = function(){
 UserSettingClass.prototype.checkRegistration = function(){
     //check if the user has already been registered, this will be in the local storage.
     if(!localStorage.getItem("uniqueId")) {
-        console.log("user is not registered.");
         $.post( "http://geocoin.eca.ed.ac.uk/registerUser.php", function( data ) {
             if(data.status=="sucess"){
                 localStorage.setItem("uniqueId",data.uniqueId);
-								console.log(data.uniqueId);}
+								alert(data.uniqueId);}
             else
                 console.log(data.status);
         });

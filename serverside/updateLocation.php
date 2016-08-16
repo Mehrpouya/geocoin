@@ -39,7 +39,7 @@ add it to the users database
 return the value to the user as php response
 the user then will save this in localstorage and uset it.
 */
-if(isset($_POST['uniqueId'],$_POST['longitude'],$_POST['latitude'],
+if(isset($_POST['userId'],$_POST['longitude'],$_POST['latitude'],
          $_POST['accuracy'],$_POST['timeReceived'])){
   if ($db->connect_errno > 0) {
     die('Unable to connect to database [' . $db->connect_error . ']');
@@ -47,12 +47,12 @@ if(isset($_POST['uniqueId'],$_POST['longitude'],$_POST['latitude'],
     if (!($stmt = $db->prepare("call updateLocation (?,?,?,?,?)"))) {
       echo "Prepare failed: (" . $db->errno . ") " . $db->error;
     }
-    $uniqueId = ($_POST['uniqueId']);
+    $userId = ($_POST['userId']);
     $longitude = ($_POST['longitude']);
     $latitude = ($_POST['latitude']);
     $accuracy = ($_POST['accuracy']);
     $timeReceived = ($_POST['timeReceived']);
-    $stmt->bind_param('sddii', $uniqueId, $latitude, $longitude , $accuracy,$timeReceived);
+    $stmt->bind_param('iddii', $userId, $latitude, $longitude , $accuracy,$timeReceived);
     if (!$stmt->execute()) {
       echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
     }

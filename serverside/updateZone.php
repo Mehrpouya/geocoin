@@ -30,21 +30,40 @@ $db = new mysqli($host, $username, $password, $database);
 /*
 updating point_zones. This php file, will update zones as enabling and disabling them, also deleting them.
 */
-if ($db->connect_errno > 0) {
-  die('Unable to connect to database [' . $db->connect_error . ']');
-} else {
+
   if(isset($_POST['type'])){
-    if($_POST['type']=="money"){
-      if(isset($_POST['zoneId'],$_POST['userId'])){
+    if($_POST['type']=="oneoff"){
+      if(isset($_POST['zoneId'],$_POST['userId'],$_POST['value'])){
         if ($db->connect_errno > 0) {
           die('Unable to connect to database [' . $db->connect_error . ']');
         } else {
-          if (!($stmt = $db->prepare("call userInMoneyZone (?,?)"))) {
+          if (!($stmt = $db->prepare("call userInOneOffZone (?,?,?)"))) {
             echo "Prepare failed: (" . $db->errno . ") " . $db->error;
           }
           $zoneId = $_POST['zoneId'];
           $userId = $_POST['userId'];
-          $stmt->bind_param('si', $userId, $zoneId);
+          $value = $_POST['value'];
+          $stmt->bind_param('iid', $userId, $zoneId,$value);
+          if (!$stmt->execute()) {
+            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+          }
+          $stmt->close();
+
+        }
+      }
+    }
+    else if($_POST['type']=="continues"){
+      if(isset($_POST['zoneId'],$_POST['userId'],$_POST['value'])){
+        if ($db->connect_errno > 0) {
+          die('Unable to connect to database [' . $db->connect_error . ']');
+        } else {
+          if (!($stmt = $db->prepare("call userInContinuesZone (?,?,?)"))) {
+            echo "Prepare failed: (" . $db->errno . ") " . $db->error;
+          }
+          $zoneId = $_POST['zoneId'];
+          $userId = $_POST['userId'];
+          $value = $_POST['value'];
+          $stmt->bind_param('iid', $userId, $zoneId,$value);
           if (!$stmt->execute()) {
             echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
           }
@@ -54,5 +73,4 @@ if ($db->connect_errno > 0) {
       }
     }
   }
-}
 ?>

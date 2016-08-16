@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<html>
+<head>
+  <!--
+  Customize this policy to fit your own app's needs. For more guidance, see:
+  https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+  Some notes:
+  * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+  * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+  * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+  * Enable inline JS: add 'unsafe-inline' to default-src
+-->
+<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
+<meta name="format-detection" content="telephone=no">
+<meta name="msapplication-tap-highlight" content="no">
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+<script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+<link rel="stylesheet" type="text/css" href="js/leaflet/leaflet.css">
+<link rel="stylesheet" type="text/css" href="js/leaflet/leaflet.label.css">
+<link rel="stylesheet" type="text/css" href="js/L.Control.MousePosition.css">
+<link rel="stylesheet" href="js/L.Icon.Pulse.css" />
+<title>Geo coin</title>
+</head>
+<body>
+
+  <div id="map"></div>
+
+
+  <div id="userStats">
+    <div id="user">
+        <img src="img/icons/personRed.png" class="balanceIcons"/>Hadi
+    </div>
+    <table>
+
+      <tr id="balance">
+        <td><img src="img/icons/paperMoney.png" class="balanceIcons"/></td>
+        <td id="balanceText"></td>
+      </tr>
+  </table>
+  <input type="button" value="Get Married" id="marriageBut"  />
+  </div>
+
+<div id="marriageBalance"></div>
+<img src="img/icons/information.png" id="showInfo"/>
+<img src="img/icons/single_bitcoin.png" id="bitcoinIcon"/>
+<div id="love"><img src="img/icons/happy-love.gif" >
+  <p id="marriedTo">
+  </div>
+  <div id="youCollected">
+    You have been divorced!
+  </div>
+  <div id="login">
+    <div id="loginBox">
+      <h3>To get married, <br> please choose a name:</h3>
+      <input type="text" id="usernameTxt">
+      <input type="button" id="loginBut" value="login">
+    </div>
+  </div>
+  <div id="infoScreen">
+    <p><strong><u>Get Married</u></strong>
+      and record your short-term bitcoin union in blockchain matrimony to join and share bitcoin wallets for a short duration only. Why?
+
+      To explore how we may negotiate roles and values in new forms of short-term partnerships or smart contracts in the future. This location-based bitcoin prototype questions traditional forms of legal contracts currently governing our relation and partnerships. And it considers new opportunities in smart contracting technology and location-based economic services.
+    </p>
+    <p><strong><u>To dissolve your marriage, </u></strong>
+      you just have to wait 5 minutes (or click the divorce button). Your marriage and its dissolution will automatically be recorded as transaction in the pavilion's printed ledger of marriages.
+    </p>
+    <p><strong><u>Disclaimer</u></strong>
+      This is a speculative prototype and no contractually binding marriages are or will take place.
+      This app is based on your phone's location services so may not always be accurate.
+    </p>
+    <p><strong><u>Designed by:</u></strong>
+      The concept of this app was developed collaboratively as part of the Blockchain City workshop at the Citylab conference in Amsterdam. Faciliated by Chris Speed, Larissa Pschetz and Dave Murray-Rust the concept was developed by James Stewart, Max Dovey and Corina Angheloiu based on code written by Hadi Mehrpouya and designed by Bettina Nissen.
+    </p>
+  </div>
+
+    <script type="text/javascript" src="js/leaflet/leaflet.js"></script>
+    <script type="text/javascript" src="js/leaflet/leaflet.label.js"></script>
+    <script type="text/javascript" src="js/L.Control.MousePosition.js"></script>
+    <script type="text/javascript" src="js/L.Icon.Pulse.js" /></script>
+    <script type="text/javascript" src="js/myUtils.js"></script>
+    <script type="text/javascript" src="js/PointZoneClass.js"></script>
+    <script type="text/javascript" src="js/UserSettingClass.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+  </body>
+  </html>

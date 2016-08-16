@@ -12,6 +12,7 @@ html, body, #map {
 /* line 10, ../sass/main.scss */
 #userBalance {
   display: block;
+  width:350px;
   position: absolute;
   bottom: 20px;
   left: 30px;

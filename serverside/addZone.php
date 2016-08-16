@@ -36,19 +36,21 @@ if ($db->connect_errno > 0) {
   die('Unable to connect to database [' . $db->connect_error . ']');
 } else {
   if(isset($_GET['longitude'],$_GET['latitude'],
-  $_GET['radius'],$_GET['zoneType'])){
+  $_GET['radius'],$_GET['zoneType'],$_GET['forWho'])){
     if ($db->connect_errno > 0) {
       die('Unable to connect to database [' . $db->connect_error . ']');
     } else {
-      if (!($stmt = $db->prepare("INSERT INTO `point_zones`(`latitude`, `longitude`, `radius`, `zoneType`,`status`) values (?,?,?,?,?)"))) {
+      if (!($stmt = $db->prepare("INSERT INTO `point_zones`(`latitude`, `longitude`, `radius`, `zoneType`,`value`,`status`,`forWho`) values (?,?,?,?,?,?,?)"))) {
         echo "Prepare failed: (" . $db->errno . ") " . $db->error;
       }
       $longitude = ($_GET['longitude']);
       $latitude = ($_GET['latitude']);
       $radius = ($_GET['radius']);
       $zoneType = ($_GET['zoneType']);
+      $value = ($_GET['value']);
       $status = ($_GET['status']);
-      $stmt->bind_param('ddiis', $latitude, $longitude , $radius,$zoneType,$status);
+      $forWho = ($_GET['forWho']);
+      $stmt->bind_param('ddisdss', $latitude, $longitude , $radius,$zoneType,$value,$status,$forWho);
       if (!$stmt->execute()) {
         $response = array(
           "status"=>"failed",

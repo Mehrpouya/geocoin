@@ -18,24 +18,41 @@ add it to the users database
 return the value to the user as php response
 the user then will save this in localstorage and uset it.
 */
+if ($db->connect_errno > 0) {
+  die('Unable to connect to database [' . $db->connect_error . ']');
+} else {
+
+  if(isset($_POST['userName'])){
     if ($db->connect_errno > 0) {
-        die('Unable to connect to database [' . $db->connect_error . ']');
+      die('Unable to connect to database [' . $db->connect_error . ']');
     } else {
-        $uniqueId = uniqid('', true);
-        $sth = $db->prepare("INSERT INTO `users` (`uniqueId`) VALUES (?) ");
-        $sth->bind_param('s'
-                , ($uniqueId));
-        $OK = $sth->execute();
-        // return if successful or display error
-        if ($OK) {
-            $response = array(
-                "status"=>"sucess",
-                "uniqueId"=>$uniqueId);
-        } else {
-            $response = array(
-                "status"=>"failed");
+      if (!($stmt = $db->prepare("call registerUser (?)"))) {
+        echo "Prepare failed: (" . $db->errno . ") " . $db->error;
+      }
+      $userName = ($_POST['userName']);
+      $stmt->bind_param('s', $userName);
+      if (!$stmt->execute()) {
+        $response = array(
+          "status"=>"failed",
+          "errno"=>$stmt->errno,
+          "error"=> $stmt->error);
         }
-        echo json_encode($response);
-        $sth->close();
+        else{
+          /* bind result variables */
+          $stmt->bind_result($walletName, $userId);
+          $stmt->fetch();
+          /* fetch values */
+
+
+          $response = array(
+            "status"=>"sucess",
+          "walletName"=>$walletName,
+          "userId"=>$userId
+          );
+        }
+        $stmt->close();
+      }
+      echo json_encode($response);
     }
-?>
+  }
+  ?>

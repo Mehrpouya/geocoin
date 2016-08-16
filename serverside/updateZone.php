@@ -72,5 +72,43 @@ updating point_zones. This php file, will update zones as enabling and disabling
         }
       }
     }
+    else if($_POST['type']=="negativeZone"){
+      if(isset($_POST['zoneId'],$_POST['userId'])){
+        if ($db->connect_errno > 0) {
+          die('Unable to connect to database [' . $db->connect_error . ']');
+        } else {
+          if (!($stmt = $db->prepare("call userInNegativeZone (?,?)"))) {
+            echo "Prepare failed: (" . $db->errno . ") " . $db->error;
+          }
+          $zoneId = $_POST['zoneId'];
+          $userId = $_POST['userId'];
+          $stmt->bind_param('si', $userId, $zoneId);
+          if (!$stmt->execute()) {
+            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+          }
+          $stmt->close();
+
+        }
+      }
+    }
+    else if($_POST['type']=="positiveZone"){
+      if(isset($_POST['zoneId'],$_POST['userId'])){
+        if ($db->connect_errno > 0) {
+          die('Unable to connect to database [' . $db->connect_error . ']');
+        } else {
+          if (!($stmt = $db->prepare("call userInPositiveZone (?,?)"))) {
+            echo "Prepare failed: (" . $db->errno . ") " . $db->error;
+          }
+          $zoneId = $_POST['zoneId'];
+          $userId = $_POST['userId'];
+          $stmt->bind_param('si', $userId, $zoneId);
+          if (!$stmt->execute()) {
+            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+          }
+          $stmt->close();
+
+        }
+      }
+    }
   }
 ?>

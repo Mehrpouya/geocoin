@@ -22,3 +22,9 @@ Make sure to run this from the folder the script is located at otherwise include
 - All files have been moved to DI amazon server.
 - 45 user wallets, 5 positive and 5 negative wallets.
 - Details of wallets been given to Dave and Bettina.
+
+
+#database
+Here is database EER Diagram
+
+![EER Diagram](https://github.com/Mehrpouya/geocoin/blob/master/marriage%20database%20model.png)

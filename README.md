@@ -1,5 +1,5 @@
 # geocoin
-Prototype as part of After Money project based at University of Edinburgh. Experimenting with digital currencies.
+Prototype as part of After Money project based at University of Edinburgh. Experimenting with digital currencies. **GPS based bitcoin transactions using electrum.**
 
 
 # Moving to another server:

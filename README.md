@@ -1,9 +1,25 @@
-# geocoin
+# Geocoin Documentation
 Prototype as part of After Money project based at University of Edinburgh. Experimenting with digital currencies. **GPS based bitcoin transactions using electrum.**
 
 
 ##How different parts of the software work
-there are three applications, [Basic Geocoin](##Links "Basic geocoin"), Marriage and charity
+there are three applications, [Basic Geocoin](##Links "Basic geocoin"), [Marriage web app](##Links "Marriage web app") and [Charity web app](##Links "Charity web app").
+
+Due to back-end and database changes the [Basic Geocoin](##Links "Basic geocoin") and [Charity web app](##Links "Charity web app") needs to be updated to work with the current back-end.
+
+###How these apps function:
+
+####Different part of the apps:
+each app consists of:
+- front-end (js,html,css) files.
+- back-end php files to communication with Mysql database
+- There is a config.ini file that has the authentication parameters in it, because of security purposes, I have copied a this on project external hard drive.
+- bitcoin python payto file. This will take care of wallet transactions.
+
+
+
+
+
 
 ## Moving to another server:
 All wallets need to be restored by either using the electrum GUI or terminal.

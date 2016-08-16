@@ -2,10 +2,13 @@
 Prototype as part of After Money project based at University of Edinburgh. Experimenting with digital currencies. **GPS based bitcoin transactions using electrum.**
 
 
-# Moving to another server:
+##How different parts of the software work
+there are three applications, [Basic Geocoin](##Links "Basic geocoin"), Marriage and charity
+
+## Moving to another server:
 All wallets need to be restored by either using the electrum GUI or terminal.
 
-#example command
+##example command
 electrum restore --wallet ~/.electrum/wallets/negativeWallet_3 "alone rest of the wallet seed"
 and then you need to provide a password.
 
@@ -19,12 +22,19 @@ watch -n 20 python payto.py
 
 Make sure to run this from the folder the script is located at otherwise include the file path in the command above.
 
-- All files have been moved to DI amazon server.
-- 45 user wallets, 5 positive and 5 negative wallets.
-- Details of wallets been given to Dave and Bettina.
 
 
-#database
-Here is database EER Diagram
 
+#Database
+Here is the database EER Diagram
+Please note in the current version of the software the foreign keys are not in place. This won't affect the application, but as a good practice, next developer may want to add them.
 ![EER Diagram](https://github.com/Mehrpouya/geocoin/blob/master/marriage%20database%20model.png)
+
+
+
+
+##Links:
+- [Basic geocoin](https://github.com/Mehrpouya/geocoin/tree/master/basicGeocoin "Basic geocoin")
+
+- [Marriage web app](https://github.com/Mehrpouya/geocoin/tree/master/marriage "Marriage web app")
+- [Charity web app](https://github.com/Mehrpouya/geocoin/tree/master/charity "Charity web app")

@@ -42,9 +42,9 @@ In case you want to move this application to a new server, these are the steps y
   - admin rights on MySQL to create database, table and procedures.
 2. All wallets need to be restored by either using the electrum GUI or terminal.
 3. If you don't have the geocoin database, run the following scripts in the same order as below in your mysql query interface:
-  1. [Geocoin database & table creation script]("https://github.com/Mehrpouya/geocoin/blob/master/serverside/geocoin_app%20Create%20database%20structure%20script.sql")
-  2. [Wallets table data]("https://github.com/Mehrpouya/geocoin/blob/master/serverside/geocoin_app%20data%20for%20wallets.sql")
-4. From ["serverside folder"]("("https://github.com/Mehrpouya/geocoin/blob/master/serverside/") upload all php files including the dbconfig to the public_html or www folder of your new server.
+  1. [Geocoin database & table creation script](##Links "Geocoin database & table creation script")
+  2. [Wallets table data](##Links "Wallets table data")
+4. From [Serverside Folder](##Links "Serverside Folder") upload all php files including the dbconfig to the public_html or www folder of your new server.
   - Make sure you update the dbconfig.ini to have correct authentication information.
 5. Depending on which project you decide to migrate to a new server:
   - Copy all the files and folder of one of the three into your new server
@@ -102,7 +102,8 @@ And scripts for restoring the databese on a new server:
 
 - [Marriage web app](https://github.com/Mehrpouya/geocoin/tree/master/marriage "Marriage web app")
 - [Charity web app](https://github.com/Mehrpouya/geocoin/tree/master/charity "Charity web app")
-- [EER Diagram](https://github.com/Mehrpouya/geocoin/blob/master/marriage%20database%20model.png)
-- [Geocoin database & table creation script]("https://github.com/Mehrpouya/geocoin/blob/master/serverside/geocoin_app%20Create%20database%20structure%20script.sql")
-- [Wallets table data]("https://github.com/Mehrpouya/geocoin/blob/master/serverside/geocoin_app%20data%20for%20wallets.sql")
-- [dbconfig.ini]("https://github.com/Mehrpouya/geocoin/blob/master/dbconfig.ini")
+- [Serverside Folder](https://github.com/Mehrpouya/geocoin/tree/master/charity "Serverside Folder")
+- [EER Diagram](https://github.com/Mehrpouya/geocoin/blob/master/marriage%20database%20model.png "EER Diagram")
+- [Geocoin database & table creation script](https://github.com/Mehrpouya/geocoin/blob/master/serverside/geocoin_app%20Create%20database%20structure%20script.sql "Geocoin database & table creation script")
+- [Wallets table data](https://github.com/Mehrpouya/geocoin/blob/master/serverside/geocoin_app%20data%20for%20wallets.sql "Wallets table data")
+- [dbconfig.ini](https://github.com/Mehrpouya/geocoin/blob/master/dbconfig.ini "dbconfig.ini")

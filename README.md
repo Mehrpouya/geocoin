@@ -13,10 +13,18 @@ Due to back-end and database changes the [Basic Geocoin](##Links "Basic geocoin"
 each app consists of:
 - front-end (js,html,css) files.
 - back-end php files to communication with Mysql database
-  - There is a config.ini file that has the authentication parameters in it, because of security purposes, I have copied a this on project external hard drive.
+  - There is a [dbconfig.ini](##Links "dbconfig.ini") file that has the authentication parameters in it, because of security purposes, I emptied the authentication details, when migrating to new servers either put them in by hand or copy them from project external hard drive.
 - bitcoin python "payto.py" file. This will take care of wallet transactions.
+  - Make sure to put in all the details of each wallet as show in the example inside this file.
   - There is a shell script repeatFetch.sh, which will run the payto.py code indefinitely.
+```
+walletsList = {"wallet_name_1":["password1","address1"],
+               "wallet_name_2":["password2","address2"],
+               "rest of the wallets" : ["passwordX","AddressX"]}
 
+userWallets = {"userId":"walletName",
+               "userId":"walletName"}
+```
 #### payto.py
 payto script deals with transactions. This script will look at geocoin mysql database and based on the active transactions in there it will make bitcoin transactions using electrum python script.
 I used "watch" command to run the python code every 10 seconds, however It may be a better idea to run this every 20 or XX seconds as electrum network speed tents to fluctuate.
@@ -82,3 +90,4 @@ And scripts for restoring the databese on a new server:
 - [EER Diagram](https://github.com/Mehrpouya/geocoin/blob/master/marriage%20database%20model.png)
 - [Geocoin database & table creation script]("https://github.com/Mehrpouya/geocoin/blob/master/serverside/geocoin_app%20Create%20database%20structure%20script.sql")
 - [Wallets table data]("https://github.com/Mehrpouya/geocoin/blob/master/serverside/geocoin_app%20data%20for%20wallets.sql")
+- [dbconfig.ini]("https://github.com/Mehrpouya/geocoin/blob/master/dbconfig.ini")

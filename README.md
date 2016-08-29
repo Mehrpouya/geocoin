@@ -13,7 +13,7 @@ Due to back-end and database changes the [Basic Geocoin](##Links "Basic geocoin"
 each app consists of:
 - front-end (js,html,css) files.
 - back-end php files to communication with Mysql database
-- There is a config.ini file that has the authentication parameters in it, because of security purposes, I have copied a this on project external hard drive.
+  - There is a config.ini file that has the authentication parameters in it, because of security purposes, I have copied a this on project external hard drive.
 - bitcoin python payto file. This will take care of wallet transactions.
 
 

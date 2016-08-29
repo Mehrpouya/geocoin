@@ -32,9 +32,9 @@ In case you want to move this application to a new server, these are the steps y
   - Make sure you update the dbconfig.ini to have correct authentication information.
 4. Depending on which project you decide to migrate to a new server:
   - Copy all the files and folder of one of the three into your new server
-      - [Basic geocoin]("https://github.com/Mehrpouya/geocoin/tree/master/basicGeocoin")
-      - [Charity]("https://github.com/Mehrpouya/geocoin/tree/master/charity")
-      - [Marriage]("https://github.com/Mehrpouya/geocoin/tree/master/marriage")
+      - [Basic Geocoin](##Links "Basic geocoin")
+      - [Marriage web app](##Links "Marriage web app")
+      - [Charity web app](##Links "Charity web app")
 
 ###1.Example command and how to restore wallets
 ####Through terminal
@@ -62,8 +62,10 @@ Here is the database EER Diagram
 Please note in the current version of the software the foreign keys are not in place. This won't affect the application, but as a good practice, next developer may want to add them.
 ![EER Diagram](https://github.com/Mehrpouya/geocoin/blob/master/marriage%20database%20model.png)
 
-And scripts for restoring the databese on a new server
+And scripts for restoring the databese on a new server:
+
 1. [Geocoin database & table creation script](##Links "Geocoin database & table creation script")
+
 2. [Wallets table data](##Links "Wallets table data")
 
 

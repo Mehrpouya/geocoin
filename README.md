@@ -17,6 +17,8 @@ each app consists of:
 - bitcoin python "payto.py" file. This will take care of wallet transactions.
   - Make sure to put in all the details of each wallet as show in the example inside this file.
   - There is a shell script repeatFetch.sh, which will run the payto.py code indefinitely.
+
+So you need to update the section below inside the payto.py with list of all wallets.
 ```
 walletsList = {"wallet_name_1":["password1","address1"],
                "wallet_name_2":["password2","address2"],
@@ -32,22 +34,28 @@ I used "watch" command to run the python code every 10 seconds, however It may b
 ## Moving to another server:
 In case you want to move this application to a new server, these are the steps you need to follow:
 
-1. All wallets need to be restored by either using the electrum GUI or terminal.
-2. If you don't have the geocoin database, run the following scripts in the same order as below in your mysql query interface:
+1. Server requirements:
+  - PHP and MySQL installed
+  - Electrum installed
+  - Have user rights to be able to copy files into server
+  - Rights run shell scrips
+  - admin rights on MySQL to create database, table and procedures.
+2. All wallets need to be restored by either using the electrum GUI or terminal.
+3. If you don't have the geocoin database, run the following scripts in the same order as below in your mysql query interface:
   1. [Geocoin database & table creation script]("https://github.com/Mehrpouya/geocoin/blob/master/serverside/geocoin_app%20Create%20database%20structure%20script.sql")
   2. [Wallets table data]("https://github.com/Mehrpouya/geocoin/blob/master/serverside/geocoin_app%20data%20for%20wallets.sql")
-3. From ["serverside folder"]("("https://github.com/Mehrpouya/geocoin/blob/master/serverside/") upload all php files including the dbconfig to the public_html or www folder of your new server.
+4. From ["serverside folder"]("("https://github.com/Mehrpouya/geocoin/blob/master/serverside/") upload all php files including the dbconfig to the public_html or www folder of your new server.
   - Make sure you update the dbconfig.ini to have correct authentication information.
-4. Depending on which project you decide to migrate to a new server:
+5. Depending on which project you decide to migrate to a new server:
   - Copy all the files and folder of one of the three into your new server
       - [Basic Geocoin](##Links "Basic geocoin")
       - [Marriage web app](##Links "Marriage web app")
       - [Charity web app](##Links "Charity web app")
-5. Run the python payto.py file on the new server
+6. Run the python payto.py file on the new server
 
 
 
-###1.Example command and how to restore wallets
+###2.Example command and how to restore wallets
 ####Through terminal
 electrum restore --wallet ~/.electrum/wallets/negativeWallet_3 "Replace this with the seed for the wallet you are restoring"
 and then you need to provide a password for it. Doesn't have to be the same as before.
@@ -55,7 +63,7 @@ and then you need to provide a password for it. Doesn't have to be the same as b
 ####Through Electrum GUI
 
 
-###5. Running the payto.py
+###6. Running the payto.py
 ####example of a command for running the python payto file:
 
 **watch** -n 10 python payto.py

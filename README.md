@@ -35,6 +35,9 @@ In case you want to move this application to a new server, these are the steps y
       - [Basic Geocoin](##Links "Basic geocoin")
       - [Marriage web app](##Links "Marriage web app")
       - [Charity web app](##Links "Charity web app")
+5. Run the python payto.py file on the new server
+
+
 
 ###1.Example command and how to restore wallets
 ####Through terminal
@@ -44,9 +47,7 @@ and then you need to provide a password for it. Doesn't have to be the same as b
 ####Through Electrum GUI
 
 
-
-
-
+###5. Running the payto.py
 ####example of a command for running the python payto file:
 
 **watch** -n 10 python payto.py
@@ -55,6 +56,9 @@ and then you need to provide a password for it. Doesn't have to be the same as b
 watch -n **20** python payto.py
 
 Make sure to run this from the folder the script is located at, or make sure to include the file path in the command above.
+
+
+
 
 
 #Database

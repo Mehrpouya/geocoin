@@ -61,7 +61,14 @@ electrum restore --wallet ~/.electrum/wallets/negativeWallet_3 "Replace this wit
 and then you need to provide a password for it. Doesn't have to be the same as before.
 
 ####Through Electrum GUI
-
+1. Open electrum GUI
+2. Either press Ctrl + N or go to "File" => new/restore
+3. Choose a name for the wallet you want to restore
+4. Choose restore wallet or import keys like the image below
+  ![Choose restore wallet or import keys like the image below](https://github.com/Mehrpouya/geocoin/blob/master/restoreWallet.png)
+5. Type in or copy and paste the seed for the wallet you are restoring.
+  ![seed](https://github.com/Mehrpouya/geocoin/blob/master/restoreWallet2.png)
+6. Next and done...
 
 ###6. Running the payto.py
 ####example of a command for running the python payto file:

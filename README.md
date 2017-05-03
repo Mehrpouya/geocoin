@@ -2,14 +2,14 @@
 Prototype as part of After Money project based at University of Edinburgh. Experimenting with digital currencies. **GPS based bitcoin transactions using electrum.**
 
 
-##How different parts of the software work
+## How different parts of the software work
 there are three applications, [Basic Geocoin](##Links "Basic geocoin"), [Marriage web app](##Links "Marriage web app") and [Charity web app](##Links "Charity web app").
 
 Due to back-end and database changes the [Basic Geocoin](##Links "Basic geocoin") and [Charity web app](##Links "Charity web app") needs to be updated to work with the current back-end.
 
-###How these apps function:
+### How these apps function:
 
-####Different part of the apps:
+#### Different part of the apps:
 each app consists of:
 - front-end (js,html,css) files.
 - back-end php files to communication with Mysql database
@@ -55,12 +55,12 @@ In case you want to move this application to a new server, these are the steps y
 
 
 
-###2.Example command and how to restore wallets
-####Through terminal
+### 2.Example command and how to restore wallets
+#### Through terminal
 electrum restore --wallet ~/.electrum/wallets/negativeWallet_3 "Replace this with the seed for the wallet you are restoring"
 and then you need to provide a password for it. Doesn't have to be the same as before.
 
-####Through Electrum GUI
+#### Through Electrum GUI
 1. Open electrum GUI
 2. Either press Ctrl + N or go to "File" => new/restore
 3. Choose a name for the wallet you want to restore
@@ -84,7 +84,7 @@ Make sure to run this from the folder the script is located at, or make sure to 
 
 
 
-#Database
+# Database
 Here is the database EER Diagram
 Please note in the current version of the software the foreign keys are not in place. This won't affect the application, but as a good practice, next developer may want to add them.
 ![EER Diagram](https://github.com/Mehrpouya/geocoin/blob/master/marriage%20database%20model.png)
@@ -97,7 +97,7 @@ And scripts for restoring the databese on a new server:
 
 
 
-##Links:
+## Links:
 - [Basic geocoin](https://github.com/Mehrpouya/geocoin/tree/master/basicGeocoin "Basic geocoin")
 
 - [Marriage web app](https://github.com/Mehrpouya/geocoin/tree/master/marriage "Marriage web app")
